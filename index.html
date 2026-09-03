@@ -27,9 +27,17 @@
             font-size: 16px;
             cursor: pointer;
             margin-top: 20px;
+            margin-left: 8px;
+            margin-right: 8px;
         }
         button:hover {
-            background: #0052a3;
+            filter: brightness(0.9);
+        }
+        #clickMe {
+            background: #0066cc;
+        }
+        #changeColorBtn {
+            background: #6c757d;
         }
         #message {
             margin-top: 20px;
@@ -43,12 +51,24 @@
         <h1>HELLO PEOPLE!</h1>
         <p>This is a most interesting page on the internet</p>
         <button id="clickMe">Click me</button>
+        <button id="changeColorBtn">Change Button Color</button>
         <div id="message"></div>
     </div>
 
     <script>
         document.getElementById('clickMe').addEventListener('click', () => {
             document.getElementById('message').innerText = 'Button was clicked! ✅';
+        });
+
+        const buttonColors = ['#0066cc', '#28a745', '#dc3545', '#fd7e14', '#6f42c1', '#20c997', '#e83e8c', '#ffc107', '#17a2b8', '#343a40', '#6610f2', '#adb5bd'];
+        let colorIndex = 0;
+
+        document.getElementById('changeColorBtn').addEventListener('click', () => {
+            colorIndex = (colorIndex + 1) % buttonColors.length;
+            const newColor = buttonColors[colorIndex];
+            const clickMeButton = document.getElementById('clickMe');
+            clickMeButton.style.background = newColor;
+            document.getElementById('message').style.color = newColor;
         });
     </script>
 </body>
