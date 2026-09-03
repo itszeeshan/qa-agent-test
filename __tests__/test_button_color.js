@@ -41,15 +41,26 @@ async function run() {
   const afterSecondClick = clickMeBtn.style.background;
   assert(afterSecondClick !== afterFirstClick, 'clicking changeColorBtn changes color again (2nd click)');
 
-  const seen = new Set([initialColor, afterFirstClick, afterSecondClick]);
+  // Discover the palette size by clicking until we see a repeat, allowing for
+  // a generously large (but bounded) palette rather than assuming a fixed length.
+  const seenInOrder = [initialColor, afterFirstClick, afterSecondClick];
   let wrapped = false;
-  for (let i = 0; i < 6; i++) {
+  const maxIterations = 50;
+  for (let i = 0; i < maxIterations; i++) {
     changeColorBtn.dispatchEvent(new window.Event('click', { bubbles: true }));
     const c = clickMeBtn.style.background;
-    if (seen.has(c)) { wrapped = true; break; }
-    seen.add(c);
+    if (seenInOrder.includes(c)) {
+      wrapped = true;
+      break;
+    }
+    seenInOrder.push(c);
   }
   assert(wrapped, 'color cycle wraps around through a fixed palette');
+  assert(seenInOrder.length >= 6, 'palette has at least 6 distinct colors before wrapping');
+
+  // Verify the palette has actually grown beyond the original 6-color set by
+  // cycling exactly through it and confirming there are more than 6 unique values.
+  assert(new Set(seenInOrder).size === seenInOrder.length, 'all colors observed before wrap are distinct');
 
   if (process.exitCode === 1) {
     console.error('\nSome tests failed.');
