@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple interesting page with a color-changing button demo",
   "scripts": {
-    "test": "node __tests__/test_button_color.js"
+    "test": "node __tests__/test_button_color.js && node __tests__/test_more_colors.js"
   },
   "devDependencies": {
     "jsdom": "^24.0.0"
