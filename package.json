@@ -1,0 +1,17 @@
+{
+  "name": "qa-agent-test",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "vitest": "^4.1.11"
+  },
+  "type": "module"
+}
